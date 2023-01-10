@@ -41,4 +41,11 @@ public class GeneralController {
         mav.setViewName("Menu");
         return mav;
     }
+
+    @RequestMapping(path="/Admin/AddItem")
+    public ModelAndView A_AddItem(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("Admin/AddItem");
+        return mav;
+    }
 }
