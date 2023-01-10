@@ -1,6 +1,7 @@
 package imc.mscdevopstakeaway22_23.repository;
 
 import imc.mscdevopstakeaway22_23.DTO.ItemDTO;
+import imc.mscdevopstakeaway22_23.Form.AddItemForm;
 import imc.mscdevopstakeaway22_23.model.ItemMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,5 +20,14 @@ public class ItemRepositoryJDBC implements ItemRepository{
         return jdbcTemplate.query(
                 "select ID,Name,description,price from Items" ,
                 new ItemMapper());
+    }
+
+    @Override
+    public boolean addItem(AddItemForm item) {
+        int rows = jdbcTemplate.update("insert into items (name, description, price) values (?,?,?);",
+                new Object[] {item.getName(),
+                        item.getDescription(),
+                        item.getPrice()});
+        return rows>0;
     }
 }
