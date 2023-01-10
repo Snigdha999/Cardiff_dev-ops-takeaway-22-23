@@ -62,6 +62,8 @@ public class GeneralController {
             System.out.println(br.getFieldErrors().toString());
             mav = A_AddItemGET();
         } else {
+            boolean success = itemRepo.addItem(item);
+            System.out.println(success);
             mav = menu();
         }
         System.out.println(item.getName());
