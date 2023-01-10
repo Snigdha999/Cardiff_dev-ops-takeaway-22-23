@@ -26,6 +26,13 @@ public class ItemMockMVCTests {
                 .andExpect(content().string(containsString("HomePage")));
     }
 
+    //  test using a mock MVC but a test database
+    @Test
+    public void getMenuTest() throws Exception {
+        this.mockMvc.perform(get("/Menu")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("mockDBPie")));
+    }
+
 
 }
 

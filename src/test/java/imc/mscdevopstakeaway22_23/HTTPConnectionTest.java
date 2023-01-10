@@ -30,6 +30,6 @@ class HTTPConnectionTest {
     @Test
     public void dbMenuTest() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/Menu",
-                String.class)).contains("Chips");
+                String.class)).contains("mockDBChips");
     }
 }
