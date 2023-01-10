@@ -30,4 +30,12 @@ public class ItemRepositoryJDBC implements ItemRepository{
                         item.getPrice()});
         return rows>0;
     }
+
+
+    @Override
+    public int deleteItem(int id) {
+        return jdbcTemplate.update("delete from items where id =(?);",
+                new Object[] {id});
+    }
+
 }

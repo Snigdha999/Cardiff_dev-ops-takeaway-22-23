@@ -9,5 +9,7 @@ import java.util.List;
 public interface ItemRepository {
     public List<ItemDTO> getAllItems();
     public boolean addItem(AddItemForm item);
+    int deleteItem(int itemID);
+
 
 }
