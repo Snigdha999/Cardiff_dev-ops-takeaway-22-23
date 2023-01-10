@@ -1,0 +1,26 @@
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="Home :: siteHead"></head>
+<header th:replace="Home :: siteHeader"></header>
+<main>
+    <h1> MenuPage </h1>
+
+    <table>
+        <tr th:each="item : ${menu}">
+            <td th:text="${item.iD}">1</td>
+            <td th:text="${item.name}">1</td>
+            <td th:text="${item.description}">1</td>
+            <td th:text="${item.price}">1</td>
+            <td>  <!--     Not particularly restfull      -->
+                <form th:action="@{/Admin/DeleteItem/{id}(id=${item.iD})}" method = "post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+
+    </table>
+</main>
+
+<span th:replace="Home :: siteFooter"></span>
