@@ -24,5 +24,12 @@ class HTTPConnectionTest {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/Hello.html",
                 String.class)).contains("Hello2");
     }
-    
+
+    //    this test may get commented out as it will fail when the localhost
+    //    database does not have the correct items in it.
+    @Test
+    public void dbMenuTest() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/Menu",
+                String.class)).contains("Chips");
+    }
 }
