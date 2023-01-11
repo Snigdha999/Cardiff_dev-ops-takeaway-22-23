@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -26,11 +27,30 @@ public class SecurityFullContainerMockMVCtests {
                 .andExpect(header().string("Location",  "http://localhost/login"));
     }
 
-    //  test using a mock MVC but a test databaseto a secured route - This will fail so test for the failure.
+    // Unit tests using a mock MVC to a secured route but logged in - this should succeed.
+    @Test
+    public void addItemLoggedIn() throws Exception {
+        this.mockMvc.perform(get("/Admin/AddItem")
+                .with(SecurityMockMvcRequestPostProcessors.user("user").roles("USER")) )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Add Item Page")));
+    }
+
+    //  test using a mock MVC but a test database to a secured route - This will fail so test for the failure.
     @Test
     public void deleteItemTest() throws Exception {
-        this.mockMvc.perform(get("/Admin/AddItem")).andDo(print()).andExpect(status().isFound())
+        this.mockMvc.perform(get("/Admin/DeleteItem")).andDo(print()).andExpect(status().isFound())
                 .andExpect(header().string("Location",  "http://localhost/login"));
+    }
+
+    @Test
+    public void deleteItemTestLoggedIn() throws Exception {
+        this.mockMvc.perform(get("/Admin/DeleteItem")
+                .with(SecurityMockMvcRequestPostProcessors.user("user").roles("USER")) )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Delete Item Page")));
     }
 
 }
