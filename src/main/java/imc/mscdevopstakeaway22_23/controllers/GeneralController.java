@@ -43,6 +43,13 @@ public class GeneralController {
         return mav;
     }
 
+    @RequestMapping(path="/login")
+    public ModelAndView login(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("login");
+        return mav;
+    }
+
 
     @RequestMapping(path="/Menu")
     public ModelAndView menu(){
