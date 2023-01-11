@@ -1,9 +1,6 @@
 package imc.mscdevopstakeaway22_23;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +14,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -54,6 +52,7 @@ public class ChromeDriverPageTests {
 
 
     @Test
+    @Order(1)
     public void testingPageContents() {
 
 
@@ -90,5 +89,20 @@ public class ChromeDriverPageTests {
 
     }
 
+    @Test
+    @Order(2)
+    public void testingDeletePageContents() {
+
+        this.webDriver.get("http://localhost:" + Integer.toString(port) + "/Admin/DeleteItem");
+        this.webDriver.findElement(By.name("username")).sendKeys("user");
+        this.webDriver.findElement(By.name("password")).sendKeys("password");
+        this.webDriver.findElement(By.id("SignInButton")).click();
+        assertTrue(webDriver.findElement(By.cssSelector("main h1")).getText().contains("Delete Item Page"));
+        this.webDriver.findElement(By.xpath("/html/body/main/table/tbody/tr[3]/td[5]/form/button")).click();
+        this.webDriver.get("http://localhost:" + Integer.toString(port) + "/Menu");
+        assertTrue(webDriver.findElement(By.cssSelector("table")).getText().contains("mockDBChips"));
+        assertFalse(webDriver.findElement(By.cssSelector("table")).getText().contains("sausage"));
+
+    }
 
 }
