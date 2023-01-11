@@ -91,5 +91,14 @@ public class SecurityFullContainerMockMVCtests {
                 .andExpect(content().string(not(containsString("TestMenuItem"))));
     }
 
+    //    Tests the post controller for DeleteItem to check that items are present
+    @Test
+    public void deleteItemTestForContentLoggedIn() throws Exception {
+        this.mockMvc.perform(get("/Admin/DeleteItem")
+                .with(SecurityMockMvcRequestPostProcessors.user("user").roles("USER")) )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("mockDBChips")));
+    }
 
 }
