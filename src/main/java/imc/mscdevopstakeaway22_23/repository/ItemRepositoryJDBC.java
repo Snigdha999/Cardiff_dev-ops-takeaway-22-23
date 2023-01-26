@@ -18,7 +18,7 @@ public class ItemRepositoryJDBC implements ItemRepository{
     @Override
     public List<ItemDTO> getAllItems() {
         return jdbcTemplate.query(
-                "select ID,Name,description,price from Items" ,
+                "select ID,Name,description,price from items" ,
                 new ItemMapper());
     }
 
